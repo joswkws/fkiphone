@@ -1,0 +1,50 @@
+#table{
+    width: 800px;
+    margin:0 auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+#table th,td{
+	text-align: center;
+	border: 1px solid black;
+    border-collapse: collapse;
+}
+.total{
+	margin: 0 auto;
+	float: right;
+	font-size: 20px;
+}
+.container{
+	width: 800px;
+	margin:0 auto;
+}
+.title{
+	width: 800px;
+	margin: 0 auto;
+	float: left;
+}
+.title p{
+	font-size: 20px;
+}
+body{
+	width: 800px;
+	margin: 0 auto;
+}
+.order{
+
+}
+.order td{
+	text-align: left;
+	width: auto;
+	border: 0px solid black;
+    border-collapse: collapse;
+}
+.order table {
+	width: 400px;
+	float: left;
+	border: 0;
+	border-width: 0;
+  	border-spacing: 0;
+  	border-collapse: collapse;
+}
+

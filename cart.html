@@ -1,7 +1,8 @@
-<!doctype html>
-<html lang="zh-tw">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -11,11 +12,13 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
+
 </head>
 
 <body>
-
-    <!-- Navigation -->
+   
+   
+   <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container" id="fuck">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -32,11 +35,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav" style="float:right;">  
                     <li>
-                        <a class="btn disabled" id = "cart" href="cart.html">購物車</a>
+                        <a href="cart.html">購物車</a>
                     </li>
                     <li>
                         <a href="#" class="btn btn-primagry" data-toggle="modal" data-target="#loginModal" id="btn-login">登入/註冊</a>
-                        <a href="#" class="btn btn-primagry" id="btn-logout" id="btn-logout">登出</a>
+                        <a href="#" class="btn btn-primagry hidden" id="btn-logout" id="btn-logout">登出</a>
                     </li>
                 </ul>
             </div>
@@ -44,7 +47,6 @@
         </div>
         <!-- /.container -->
     </nav>
-
     
     <!-- Page Content -->
     <div class="container">
@@ -53,24 +55,80 @@
 
             <div class="col-md-3">
                 <p class="bg-info" id="welcome"></p>
-                <p class="lead">商品類別</p>
+                <p class="lead">購物車</p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item" onclick="sendajax();" id="all_product"></a>
-                    <a href="#" class="list-group-item" onclick="sendajax();" id="phone_num"></a>
-                    <a href="#" class="list-group-item" onclick="sendajax();" id="tablet_num"></a>
+                    <a href="#" class="list-group-item" onclick="sendajax();" id="all_product">未結帳商品</a>
+                 
                 </div>
             </div>
 
             <div class="col-md-9" id="content">
 
-                <div class="row">
-                    
-                    <h3>全部商品 <span class="label label-danger">On Sale</span></h3><hr>
-                    <div id="all_items">
-                                 
-                    </div>
-                    <div id="total">              
-                    </div>
+              <div class="row">
+                  <h3>未結帳商品</h3><hr>
+               <div class="container">
+                  <table id="table table-striped" style="width: 400px;" class="table">
+                      <tr>
+                      <th width="40%">物品名稱</th>
+                      <th width="20%">數量</th>
+                      <th width="20%">單價</th>
+                      <th width="20%">總價</th>
+                      </tr>
+                      
+                  </table>
+                  <div class="total"></div>
+                 </div>
+              <hr>
+
+    <div class="order">
+       <form class="form-horizontal" name="receive">
+       
+            <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">收件人</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control" name="receiver" placeholder="收件人">
+            </div>
+            </div>
+            
+            <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">地址</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="address" placeholder="地址">
+            </div>
+            </div>
+            
+            <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">電話</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control" name="phone" placeholder="電話">
+            </div>
+            </div>
+            
+            <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">備註</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" name="remark" placeholder="備註">
+            </div>
+            </div>
+            
+            
+            <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">付款方式</label>
+            <div class="col-sm-4">
+            <input type="radio" name="paidtype" value="信用卡" checked>信用卡<br>
+            <input type="radio" name="paidtype" value="匯款">匯款<br>
+            <input type="radio" name="paidtype" value="貨到付款">貨到付款
+            </div>
+            </div>
+                 
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10" id="send">
+              
+              </div>
+          </div>
+      </form> 
+      
+    </div>
 
                 </div>
 
@@ -152,143 +210,25 @@
 
 
 <!-- Product Modal-->
-<div class="modal fade" id="ProductModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" id="productdetail">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">商品資訊</h4>
-      </div>
-      <div class="modal-body">
-     
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
     </div>
-    <!-- /.container -->
+   
+      
+      
+   
 
-    <div class="container">
 
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; 靠爸唉鳳 2015</p>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.container -->
+<!-- /.container -->
     
     <!-- Bootstrap Core JavaScript -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+    
     <script type="text/javascript">
-   
-  Parse.initialize("vPNWzwzlR5SGTzhFkXrWEQi1h2mgVXjB9NJpq4qM", "p3KCBMStwRe5ZEepsKQKQPOMcldpqSqszwK0Kqyk");
-  
-//All Category  
-  
-  //Product count
-  
-        var Product = Parse.Object.extend("Product");
-        var query = new Parse.Query(Product);
-        query.greaterThan("Price", 0);
-        query.find({
-            success: function(results) {
-             var all_product = results.length;
-              $("#all_product").text("全部("+ all_product + ")");
-             
-         
-        },
-        error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
-        }
-        });
-        
-  //Phone count
-  
-        var Product = Parse.Object.extend("Product");
-        var query = new Parse.Query(Product);
-        query.equalTo("type", "phone");
-        query.find({
-            success: function(results) {
-             var phone_num = results.length;
-              $("#phone_num").text("手機("+ phone_num + ")");
-             
-         
-        },
-        error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
-        }
-        });
-        
-  //Tablet count
-  
-        var Product = Parse.Object.extend("Product");
-        var query = new Parse.Query(Product);
-        query.equalTo("type", "tablet");
-        query.find({
-            success: function(results) {
-             var tablet_num = results.length;
-              $("#tablet_num").text("平板("+ tablet_num + ")");
-             
-         
-        },
-        error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
-        }
-        });
-        
 
-
-// To all page
-
-        $(document).ready(function(){
-        $("#all_product").click(function(){
-        $('#content').load('all_product.html', function(){});
-        })
-        })
-
-// To all phone
-
-        $(document).ready(function(){
-        $("#phone_num").click(function(){
-        $('#content').load('all_phone.html', function(){});
-        })
-        })
-        
-// To all tablet
-
-        $(document).ready(function(){
-        $("#tablet_num").click(function(){
-        $('#content').load('all_tablet.html', function(){});
-        })
-        })
-        
-
-// All Product
-
-  $(document).ready(function(){
-       $('#content').load('all_product.html', function(){});
-        })
-
-        
-        
-
-        
-                        
-        
-         
+   Parse.initialize("vPNWzwzlR5SGTzhFkXrWEQi1h2mgVXjB9NJpq4qM", "p3KCBMStwRe5ZEepsKQKQPOMcldpqSqszwK0Kqyk");
         
   //初始地圖
   var gMapId = getUrlVars()["mapId"] || null;
@@ -491,12 +431,10 @@
       
       $("#btn-login").addClass("hidden");
       $("#btn-logout").removeClass("hidden");
-      $("#cart").removeClass("disabled");
     } else {
       $("#welcome").text("提醒您~目前尚未登入");
       $("#btn-login").removeClass("hidden");
       $("#btn-logout").addClass("hidden");
-
     }
   }
   
@@ -532,6 +470,124 @@
     "</tr>");
   };
   
+
+</script>
+
+
+<script type="text/javascript">
+    var currentUser=Parse.User.current().getUsername();
+    //alert("登入者："+currentUser);
+    var orderid;
+    var total=0;
+
+    Parse.initialize("vPNWzwzlR5SGTzhFkXrWEQi1h2mgVXjB9NJpq4qM", "p3KCBMStwRe5ZEepsKQKQPOMcldpqSqszwK0Kqyk");
+
+    var cart = Parse.Object.extend("Cart");
+    var query = new Parse.Query(cart);
+    query.equalTo("username", currentUser);
+    query.equalTo("status", "0")
+    query.find({
+      success: function(results) {
+        //alert("Successfully retrieved " + results.length + " scores.");
+        // Do something with the returned Parse.Object values
+        if(results.length>0){
+          $("#send").append("<button type='button' onclick='sendOrder()'' class='btn btn-default'>送出訂單</button>");
+          //alert(">0")
+        }
+        for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+          
+              var sum = object.get('price')*object.get('quantity');
+
+              addPoint(object,sum);
+              total=total+sum;
+              //alert(total);
+          
+            // alert(object.get('productname'));
+            
+            //alert(total);
+        }
+         $(".total").append("總共: "+total+"元");
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+
+    function addPoint(object,sum){
+        $(".table").append( "<tr>"+
+          "<td><a href='#'>"+object.get("productname")+"</a></td>"+ 
+          "<td>"+object.get("quantity")+"</td>"+ 
+          "<td>"+object.get("price")+"</td>"+
+          "<td>"+sum+"</td>"+
+        "</tr>");
+        //alert(object.get("productname"))
+    }
+    
+    function sendOrder(){
+        var receiver = document.receive.receiver.value;
+        var address = document.receive.address.value;
+        var phone = document.receive.phone.value;
+        var remark = document.receive.remark.value;
+        var paidtype = document.receive.paidtype.value;
+        //alert(receiver+address+phone+paidtype+currentUser+total); 
+        
+        if(document.receive.receiver.value&&document.receive.address.value&&document.receive.phone.value){
+            var Order = Parse.Object.extend("Order");
+            var order = new Order();
+
+            order.set("username", currentUser);
+            order.set("receiver", receiver);
+            order.set("status", "未付款");
+            order.set("address", address);
+            order.set("phone", phone);
+            order.set("remark", remark);
+            order.set("paidtype", paidtype);
+            order.set("sum", total);
+
+            order.save(null, {
+              success: function(order) {
+                // Execute any logic that should take place after the object is saved.
+               // alert('New object created with objectId: ' + order.id);
+                orderid=order.id;
+                updateCart();
+              },
+              error: function(order, error) {
+                // Execute any logic that should take place if the save fails.
+                // error is a Parse.Error with an error code and message.
+                alert('Failed to create new object, with error code: ' + error.message);
+              }
+            });
+        }else{
+            //alert("資料不完整，請重新填寫");
+            
+        }
+    }
+    function updateCart(){
+        //alert("update開始");
+        var updateCart = Parse.Object.extend("Cart");
+        var query = new Parse.Query(updateCart);
+        query.equalTo("username", currentUser);
+        query.equalTo("status", "0");
+        query.find({
+            success: function(results) {
+                //alert("共"+results.length+"資料");
+                for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                   // alert("第"+i+"資料："+object.get('productname'));
+
+                    //alert("狀態="+object.get('status')+"+"+orderid);
+                    object.set("status", orderid);
+                    object.save();
+                }
+                alert("訂單送出成功，您的訂單編號："+object.get("status"));
+                 location.reload();
+            },
+            error: function(error) {
+                alert("Error: " + error.code + " " + error.message);
+            }
+        });
+    }
 
 </script>
 </body>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<title>訂單管理</title>
+	 <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/shop-homepage.css" rel="stylesheet">
+    <link href="css/all.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+
+</head>
+<body>
+	<form action="" name="list">
+		<table id="table">
+			<tr>
+				<th>訂單編號</th>
+				<th>訂購人</th>
+				<th>訂購時間</th>
+				<th>訂單金額</th>
+				<th>訂單狀態</th>
+			</tr>
+		</table>
+		<input type="button" onclick="updateStatus()" value="更新訂單">
+	</form>
+
+	<script>
+		Parse.initialize("vPNWzwzlR5SGTzhFkXrWEQi1h2mgVXjB9NJpq4qM", "p3KCBMStwRe5ZEepsKQKQPOMcldpqSqszwK0Kqyk");
+
+		var list=[];
+
+		function allOrder(){
+			//alert("hey");
+		    var order = Parse.Object.extend("Order");
+		    var query = new Parse.Query(order);
+		    query.notEqualTo("objectId", "abc");
+		    query.find({
+		      success: function(results) {
+		        //alert("Successfully retrieved " + results.length + " scores.");
+		        // Do something with the returned Parse.Object values		        
+		        for (var i = 0; i < results.length; i++) {
+		            var object = results[i];
+		        	//alert(object.get('username'));
+		            addPoint(object);
+		            //alert(total);
+		        }
+
+		      },
+		      error: function(error) {
+		        alert("Error: " + error.code + " " + error.message);
+		      }
+		    });
+		}
+	    function addPoint(object){
+	    	if(object.get("status")=="未付款"){
+	    		$("#table").append( "<tr>"+
+		          	"<td><a href='#'>"+object.id+"</a></td>"+ 
+		          	"<td>"+object.get("username")+"</td>"+ 
+		          	"<td>"+object.createdAt+"</td>"+
+		          	"<td>"+object.get("sum")+"</td>"+
+		          	"<td>未付款"+
+					"</td>"+
+		        "</tr>");
+	    	}else if(object.get("status")=="已付款"){
+				$("#table").append( "<tr>"+
+		          "<td><a href='#'>"+object.id+"</a></td>"+ 
+		          "<td>"+object.get("username")+"</td>"+ 
+		          "<td>"+object.createdAt+"</td>"+
+		          "<td>"+object.get("sum")+"</td>"+
+		          "<td><select name="+object.id+">"+
+						　"<option value='已付款' selected>已付款</option>"+
+						　"<option value='已出貨'>已出貨</option>"+
+						　"<option value='取消訂單'>取消訂單</option>"+
+						"</select>"+
+					"</td>"+
+		        "</tr>");
+	    	}else if(object.get("status")=="已出貨"){
+				$("#table").append( "<tr>"+
+		          "<td><a href='#'>"+object.id+"</a></td>"+ 
+		          "<td>"+object.get("username")+"</td>"+ 
+		          "<td>"+object.createdAt+"</td>"+
+		          "<td>"+object.get("sum")+"</td>"+
+		          "<td><select name="+object.id+">"+
+						　"<option value='已付款' >已付款</option>"+
+						　"<option value='已出貨' selected>已出貨</option>"+
+						　"<option value='取消訂單'>取消訂單</option>"+
+						"</select>"+
+					"</td>"+
+		        "</tr>");
+	    	}else if(object.get("status")=="取消訂單"){
+				$("#table").append( "<tr>"+
+		          "<td><a href='#'>"+object.id+"</a></td>"+ 
+		          "<td>"+object.get("username")+"</td>"+ 
+		          "<td>"+object.createdAt+"</td>"+
+		          "<td>"+object.get("sum")+"</td>"+
+		          "<td><select name="+object.id+">"+
+						　"<option value='已付款' >已付款</option>"+
+						　"<option value='已出貨'>已出貨</option>"+
+						　"<option value='取消訂單' selected>取消訂單</option>"+
+						"</select>"+
+					"</td>"+
+		        "</tr>");
+	    	}
+	    }
+	    function updateStatus(id,status){
+	        var updateOrder = Parse.Object.extend("Order");
+	        var query = new Parse.Query(updateOrder);
+	        query.equalTo("objectId", id);
+	        query.find({
+	            success: function(results) {
+	                alert("共"+results.length+"資料");
+	                for (var i = 0; i < results.length; i++) {
+	                    var object = results[i];
+	                    alert("第"+i+"資料：");
+
+	                    alert("狀態="+object.get('status'));
+	                    object.set("status", status);
+	                    object.save();
+	                    alert("成功，訂單編號："+object.get("status"));
+
+        			}
+        		},
+        		error: function(error) {
+                	alert("Error: " + error.code + " " + error.message);
+            	}
+            });
+	    }
+
+	</script>
+</body>
+</html>

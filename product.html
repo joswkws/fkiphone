@@ -17,7 +17,7 @@
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container" id="fuck">
+        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -32,7 +32,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav" style="float:right;">  
                     <li>
-                        <a class="btn disabled" id = "cart" href="cart.html">購物車</a>
+                        <a class="btn disabled" id="cart" href="cart.html">購物車</a>
                     </li>
                     <li>
                         <a href="#" class="btn btn-primagry" data-toggle="modal" data-target="#loginModal" id="btn-login">登入/註冊</a>
@@ -65,13 +65,31 @@
 
                 <div class="row">
                     
-                    <h3>全部商品 <span class="label label-danger">On Sale</span></h3><hr>
-                    <div id="all_items">
-                                 
+                    <h3>商品資訊 <span class="label label-info">info</span></h3><hr>
+                    <div class="row" id="detail">   
+                    <div class="col-md-6" id="pdimage">
+                    
                     </div>
-                    <div id="total">              
-                    </div>
+                    <div class="col-md-6">
+                    <div id="itemname"></div>
+                    <div id="itemscreen"></div>
+                    <div id="itempix"></div>
+                    <div id="itembackpix"></div>
+                    <div id="itemfrontpix"></div>
+                    <div id="itemcpu"></div>
+                    <div id="itemcore"></div>
+                    <div id="itemmemory"></div>
+                    <div id="itemrom"></div>
+                    <div id="itembattery"></div>
+                    <div id="itemprice"></div>
+                    <form name="receive">
+                    <div id="itemcount"></div>
 
+                    <div id="itembuy"></div>
+                     </form>
+                    </div>
+                    </div>
+                    
                 </div>
 
             </div>
@@ -151,23 +169,7 @@
 </div>
 
 
-<!-- Product Modal-->
-<div class="modal fade" id="ProductModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" id="productdetail">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">商品資訊</h4>
-      </div>
-      <div class="modal-body">
-     
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
     </div>
     <!-- /.container -->
@@ -273,18 +275,85 @@
         $("#tablet_num").click(function(){
         $('#content').load('all_tablet.html', function(){});
         })
-        })
-        
-
-// All Product
-
-  $(document).ready(function(){
-       $('#content').load('all_product.html', function(){});
-        })
-
+        }) 
         
         
+// Product ID
 
+var strUrl = location.search;
+
+  var getPara, ParaVal;
+  var aryPara = [];
+
+ 
+
+  if (strUrl.indexOf("?") != -1) {
+
+    var getSearch = strUrl.split("?");
+
+    getPara = getSearch[1].split("&");
+
+    for (i = 0; i < getPara.length; i++) {
+
+      ParaVal = getPara[i].split("=");
+
+      aryPara.push(ParaVal[0]);
+
+      aryPara[ParaVal[0]] = ParaVal[1];
+
+    }
+  }
+
+// singal product
+
+var Product = Parse.Object.extend("Product");
+        var query = new Parse.Query(Product);
+        query.equalTo("objectId", aryPara[0]);
+        query.find({
+            success: function(results2) {
+             var image = results2[0].get("image");
+             var itemname = results2[0].get("ProductModel");
+             var  itabc = results2[0].get("ProductModel");
+             var itemprice = results2[0].get("Price");
+             var itemscreen = results2[0].get("screenSize");
+             var itempix = results2[0].get("Resolution");
+             var itembackpix = results2[0].get("MainCamera");
+             var itemfrontpix = results2[0].get("SecondCamera");
+             var itemcore = results2[0].get("coreNum");
+             var itemcpu = results2[0].get("Processor");
+             var itemmemory = results2[0].get("RAM"); 
+             var itemrom = results2[0].get("ROM");
+             var itembattery = results2[0].get("Battery");
+             var itemintro = results2[0].get("Introduction");
+             var itemid = results2[0].id;
+             
+             
+             $("#pdimage").append( "<img src=\"" + image+ "\" alt=\"\">" );
+             $("#itemname").append( "<h4>商品名稱：" + itemname + "</h4>" );
+             $("#itemscreen").append( "<h4>螢幕尺寸：" + itemscreen + "</h4>" );
+             $("#itempix").append( "<h4>解析度：" + itempix + "</h4>" );
+             $("#itembackpix").append( "<h4>相機畫素(後)：" + itembackpix + "</h4>" );
+             $("#itemfrontpix").append( "<h4>相機畫素(前)：" + itemfrontpix + "</h4>" );
+             $("#itemcpu").append( "<h4>CPU：" + itemcpu + "</h4>" );
+             $("#itemcore").append( "<h4>核心數量：" + itemcore + "</h4>" );
+             $("#itemmemory").append( "<h4>記憶體：" + itemmemory + "</h4>" );
+             $("#itemrom").append( "<h4>容量：" + itemrom + "</h4>" );
+             $("#itembattery").append( "<h4>電池：" + itembattery + "</h4>" );
+             $("#itemprice").append( "<h4>價格：" + itemprice + "</h4>" );
+             $("#itemcount").append( "<h4>數量：" + "<select name = \"count\" class=\"form-control\"><option value = \"1\">1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></h>");
+             $("#itembuy").append( "<button type=\"button\" onclick=\"sendOrder()\" id=\"sendbuy\" class=\"btn btn-primary\">加入購物車</button>");
+             
+         
+        },
+        error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+        }
+        }); 
+        
+              
+        
+  
+    
         
                         
         
@@ -378,7 +447,7 @@
           setGlobalMsg(false, "忘記密碼 失敗", error);
         }
       });
-    });
+    });      
     
     // 新增地圖
     $("#create-new-map").click(function(){
@@ -492,11 +561,11 @@
       $("#btn-login").addClass("hidden");
       $("#btn-logout").removeClass("hidden");
       $("#cart").removeClass("disabled");
+      
     } else {
       $("#welcome").text("提醒您~目前尚未登入");
       $("#btn-login").removeClass("hidden");
       $("#btn-logout").addClass("hidden");
-
     }
   }
   
@@ -531,7 +600,43 @@
       "<td>"+pointObj.get("addr")+"</td>"+
     "</tr>");
   };
-  
+
+
+
+// Add to Cart
+
+
+function sendOrder(){
+        var count= document.receive.count.value;
+        if(Parse.User.current().getUsername()){
+            var cart = Parse.Object.extend("Cart");
+            var cart = new cart();
+            cart.set("username", Parse.User.current().getUsername());
+            cart.set("productname", "HTC M9+");
+            cart.set("quantity", 1);
+            cart.set("price", 13500);
+            cart.set("status", "0");
+            alert("已加入購物車");
+
+            cart.save(null, {
+              success: function(cart) {
+                // Execute any logic that should take place after the object is saved.
+                //alert('New object created with objectId: ' + order.id);
+                //orderid=order.id;
+                //updateCart();
+                
+              },
+              error: function(cart, error) {
+                // Execute any logic that should take place if the save fails.
+                // error is a Parse.Error with an error code and message.
+                alert('Failed to create new object, with error code: ' + error.message);
+              }
+            });
+        }else{
+            alert("您尚未登入");
+            
+        }
+    }                  
 
 </script>
 </body>
